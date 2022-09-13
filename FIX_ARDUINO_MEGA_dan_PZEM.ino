@@ -1,6 +1,4 @@
 #include "SoftwareSerial.h"
-#define TX 9
-#define RX 10
 
 const byte wcs1700 = A0;
 const byte wcs1700b = A1;
@@ -23,9 +21,9 @@ float current2;
 
 #include <PZEM004Tv30.h>
 
-PZEM004Tv30 pzem1(TX, RX, 0x01);
-PZEM004Tv30 pzem2(TX, RX, 0x02);
-PZEM004Tv30 pzem3(TX, RX, 0x03);
+PZEM004Tv30 pzem1(&Serial1);
+PZEM004Tv30 pzem2(&Serial2);
+PZEM004Tv30 pzem3(&Serial3);
 
 void setup() {
    Serial.begin(115200);
@@ -187,5 +185,5 @@ void loop() {
   }
 
      Serial.println();
-     delay(2000);
+     delay(1000);
  }
