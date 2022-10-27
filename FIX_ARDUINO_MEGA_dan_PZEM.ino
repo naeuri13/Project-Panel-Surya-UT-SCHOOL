@@ -20,7 +20,8 @@ int adc_value = 0;
 const byte wcs1700 = A0;
 const byte wcs1700b = A1;
 
-float zero = 511.5; //511.5; // zero calibrate
+//float zero = 511.5; //511.5; // zero calibrate
+float zero = 509.3;
 float span = 0.1386; // max Amp calibrate
 
 
@@ -49,7 +50,7 @@ void loop() {
   
   Serial.println("DC Current Test");
   float DCcurrent1 = (analogRead(wcs1700) - zero) * span;
-  Serial.print(DCcurrent1, 1);
+  Serial.print(DCcurrent1, 2);
   Serial.println(" Amp");
   Serial.println(" ");
   
@@ -113,7 +114,7 @@ void loop() {
   } else {
     Serial.println("Error reading power factor");
   }
-  Serial.println();
+  
 
 
   Serial.println("pzem kedua");
@@ -235,6 +236,7 @@ void loop() {
   String Ene2 = String (energy2, 3);
   String Pfc2 = String (pf2);
   String sVSP = String (vsp);
+  String sCSP = String (DCcurrent1);
   myNex.writeStr("tcoba.txt", "TES");
   
   myNex.writeStr("sVolt1.txt", Volt2);
@@ -244,9 +246,9 @@ void loop() {
   myNex.writeStr("sEne1.txt", Ene2);
   myNex.writeStr("sPcf1.txt", Pfc2);
 
-  //WIND TURBINE
+  //SOLAR PANEL
   myNex.writeStr("sVSP.txt", sVSP);
-  
+  myNex.writeStr("sCSP.txt", sCSP);  
   Serial.print(Volt2 + Amp2 + Pow2 + Ene2 + Fre2 + Pfc2 + vsp);
 
   Serial.println();
@@ -254,7 +256,7 @@ void loop() {
 
 
 
-  delay(1000);
+  delay(10);
 }
 float mapf(float x, float in_min, float in_max, float out_min, float out_max)
 {
